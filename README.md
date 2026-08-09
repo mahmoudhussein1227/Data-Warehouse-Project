@@ -27,7 +27,7 @@ In this project, the bronze schema stores the raw CSV-based source data in table
 
 
 ## Bronze Layer Diagram
-![Bronze layer architecture](draws/bronze_layer.drawio)
+![Bronze layer architecture](draws/bronze_layer.png)
 
 The diagram in the draws folder shows the bronze layer as the raw ingestion area where CRM and ERP source data is stored before any cleaning or business-level transformations are applied.
 
