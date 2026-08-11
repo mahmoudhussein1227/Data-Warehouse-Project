@@ -106,6 +106,10 @@ Transformation type:
 - trim values and validate alignment with downstream dimensions
 - pass-through mapping with minimal transformation
 
+### silver Layer Diagram
+![silver layer architecture](docs/bronze_silver_layer.png)
+
+
 The silver layer prepares the data for analytics by fixing quality issues while keeping the cleaned records still understandable and traceable to the source data.
 
 
