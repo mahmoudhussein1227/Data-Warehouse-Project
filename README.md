@@ -8,6 +8,16 @@ The project follows a layered approach:
 - Silver: cleaned, standardized, and validated data
 - Gold: business-ready analytical tables for reporting and BI
 
+![Data architecture](docs/data_arch..PNG)
+
+This architecture represents the end-to-end flow from source data ingestion through bronze, silver, and gold layers for analytics and reporting.
+
+### Folder overview
+- [scripts](scripts): SQL scripts for creating the database, defining each layer, and loading the warehouse objects.
+- [docs](docs): project documentation, diagrams, and the data catalog for the warehouse model.
+- [databases](databases): raw CSV source files from the CRM and ERP systems used as the base input for the warehouse.
+- [tests](tests): validation and quality-check scripts used to verify the sliver -layer transformations and gold-layer objects.
+
 ## Bronze Layer
 The bronze layer is the foundation of the warehouse. Its purpose is to preserve an exact or near-exact copy of the raw source data as it arrives from the CRM and ERP systems.
 
@@ -27,7 +37,6 @@ In this project, the bronze schema stores the raw CSV-based source data in table
 
 
 ### Bronze Layer Diagram
-![Bronze layer architecture](docs/bronze_layer.png)
 
 The diagram in the draws folder shows the bronze layer as the raw ingestion area where CRM and ERP source data is stored before any cleaning or business-level transformations are applied.
 
@@ -106,10 +115,62 @@ Transformation type:
 - trim values and validate alignment with downstream dimensions
 - pass-through mapping with minimal transformation
 
-### silver Layer Diagram
-![silver layer architecture](docs/bronze_silver_layer.png)
-
-
 The silver layer prepares the data for analytics by fixing quality issues while keeping the cleaned records still understandable and traceable to the source data.
+
+
+## Gold Layer
+the gold layer is the business-ready layer of the warehouse. It turns raw and cleaned data into a clean analytical model with:
+
+- business-friendly column names
+- standardized values
+- surrogate keys for joins
+- a star-schema structure for reporting
+
+This enables dashboards, KPIs, and analytical queries without exposing the complexity of the raw source systems.
+
+The gold layer contains three main business objects:
+
+- `gold.dim_customers` — customer dimension
+- `gold.dim_products` — product dimension
+- `gold.fact_sales` — sales fact table
+
+## Repository Structure
+
+```text
+Data-Warehouse-Project/
+├── LICENSE
+├── README.md
+├── databases/
+│   ├── placeholder
+│   ├── source_crm/
+│   │   ├── cust_info.csv
+│   │   ├── prd_info.csv
+│   │   └── sales_details.csv
+│   └── source_erp/
+│       ├── CUST_AZ12.csv
+│       ├── LOC_A101.csv
+│       └── PX_CAT_G1V2.csv
+├── docs/
+│   ├── data_catalog.md
+│   ├── data_flow_diagram.png
+│   ├── data_model.png 
+│   └── integration_diagram.png
+├── scripts/
+│   ├── create_db.sql
+│   ├── bronze/
+│   │   ├── create_bronze_tables.sql
+│   │   └── load_bronze_func.sql
+│   ├── silver/
+│   │   ├── create_silver_tables.sql
+│   │   └── load_silver_function.sql
+│   └── gold/
+│       └── ddl_gold.sql
+├── tests/
+│   ├── test_gold.sql
+│   └── test_silver.sql
+└── .git/
+```
+
+This is the current repository layout used in the project, including source files, SQL layer scripts, documentation assets, and validation tests.
 
 
